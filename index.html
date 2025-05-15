@@ -1,81 +1,187 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<title>Home</title>
-		<link rel=" shortcut icon" type="image/png" href="assets/icons/favicon.png" />
-		<link rel="stylesheet" href="app.css" />
-		<script src="https://unpkg.com/lucide@latest"></script>
-	</head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ouroboros</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #2b2a33;
+            color: #fff;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding-top: 50px;
+        }
 
-	<!-- 
-      ╔╗ ╔═╗╔╗╔╔╦╗╔═╗
-      ╠╩╗║╣ ║║║ ║ ║ ║
-      ╚═╝╚═╝╝╚╝ ╩ ╚═╝
-      -->
+        .center-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
 
-	<body class="">
-		<button id="themeButton">
-			<i id="themeIcon" icon-name="moon"></i>
-		</button>
-		<div class="container">
-			<!-- Clock and Greetings  -->
+        .date {
+            font-size: 36px;
+            color: #ddd;
+            margin-bottom: 20px;
+        }
 
-			<div class="timeBlock">
-				<div class="clock">
-					<div id="hour"></div>
-					<div id="separator"></div>
-					<div id="minutes"></div>
-				</div>
-				<div id="greetings"></div>
-			</div>
+        .search-bar {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 25px;
+            padding: 10px 20px;
+            display: inline-flex;
+            align-items: center;
+            width: 70vw;
+            max-width: 800px;
+        }
 
-			<!-- Date and Weather  -->
+        .search-bar input {
+            background: none;
+            border: none;
+            outline: none;
+            color: #fff;
+            font-size: 18px;
+            flex: 1;
+            text-align: center; /* Center the text */
+        }
 
-			<div class="weatherBlock">
-				<div class="date">
-					<div id="month"></div>
-					<div id="day"></div>
-				</div>
-				<div class="weather">
-					<div class="weatherIcon">
-						<img src="assets/icons/OneDark/unknown.png" />
-					</div>
-					<div class="weatherValue">
-						<p>- °<span class="g">c</span></p>
-					</div>
-					<div class="weatherDescription">
-						<p></p>
-					</div>
-				</div>
-			</div>
+        .search-bar input::placeholder {
+            color: #ddd;
+            text-align: center; /* Center the placeholder text */
+        }
 
-			<div class="linksBlock" id="linksBlock">
-				<div class="linksBlockLeft" id="linksBlockLeft"></div>
-				<div class="linksBlockRight" id="linksBlockRight"></div>
-			</div>
-		</div>
+        .middle-wrapper {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            margin-top: 60px;
+            width: 100%;
+        }
 
-		<!-- Config  -->
-		<script src="config.js"></script>
+        .middle-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-		<!-- Scripts  -->
-		<script src="assets/js/layout.js"></script>
-		<script src="assets/js/theme.js"></script>
-		<script src="assets/js/time.js"></script>
-		<script src="assets/js/greeting.js"></script>
-		<script src="assets/js/weather.js"></script>
+        .time {
+            font-size: 96px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #fff;
+            text-align: center;
+        }
 
-		<!-- Generators  -->
-		<script src="assets/js/buttons.js"></script>
-		<script src="assets/js/lists.js"></script>
+        .greeting {
+            font-size: 24px;
+            color: #ddd;
+            margin-bottom: 20px;
+            text-align: center;
+        }
 
-		<!-- Icons -->
-		<script>
-			lucide.createIcons();
-		</script>
-	</body>
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            justify-items: center;
+        }
 
-	<!-- Developed and designed by Miguel Ávila: -->
-	<!-- https://avila.sh-->
+        .button {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .button:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .button img {
+            width: 60px;
+            height: 60px;
+        }
+    </style>
+</head>
+<body>
+    <div class="center-section">
+        <div class="date" id="date">Friday, May 16, 2025</div>
+        <form class="search-bar" action="https://www.google.com/search" method="GET">
+            <input type="text" name="q" placeholder="O Ouroboros, serpent of eternity, guide me through the endless cycle of life, death, and rebirth.">
+        </form>
+    </div>
+
+    <div class="middle-wrapper">
+        <div class="middle-section">
+            <div class="time" id="time">00:04</div>
+            <div class="greeting" id="greeting">Good night, Zor</div>
+            <div class="button-grid">
+                <a href="https://www.reddit.com" class="button">
+                    <img src="https://simpleicons.org/icons/reddit.svg" alt="Reddit" style="filter: grayscale(100%)">
+                </a>
+                <a href="https://www.youtube.com" class="button">
+                    <img src="https://simpleicons.org/icons/youtube.svg" alt="YouTube" style="filter: grayscale(100%)">
+                </a>
+                <a href="https://mail.google.com" class="button">
+                    <img src="https://simpleicons.org/icons/gmail.svg" alt="Gmail" style="filter: grayscale(100%)">
+                </a>
+                <a href="https://store.steampowered.com" class="button">
+                    <img src="https://simpleicons.org/icons/steam.svg" alt="Steam" style="filter: grayscale(100%)">
+                </a>
+                <a href="https://www.instagram.com" class="button">
+                    <img src="https://simpleicons.org/icons/instagram.svg" alt="Instagram" style="filter: grayscale(100%)">
+                </a>
+                <a href="https://x.com" class="button">
+                    <img src="https://simpleicons.org/icons/x.svg" alt="X" style="filter: grayscale(100%)">
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function updateTime() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            document.getElementById('time').textContent = `${hours}:${minutes}`;
+
+            const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            const day = now.getDate();
+            const month = months[now.getMonth()];
+            const year = now.getFullYear();
+            const weekday = days[now.getDay()];
+            document.getElementById('date').textContent = `${weekday}, ${month} ${day}, ${year}`;
+
+            const hour = now.getHours();
+            let greeting = '';
+            if (hour >= 5 && hour < 12) {
+                greeting = 'Good morning, Zor';
+            } else if (hour >= 12 && hour < 17) {
+                greeting = 'Good afternoon, Zor';
+            } else if (hour >= 17 && hour < 22) {
+                greeting = 'Good evening, Zor';
+            } else {
+                greeting = 'Good night, Zor';
+            }
+            document.getElementById('greeting').textContent = greeting;
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+    </script>
+</body>
 </html>
