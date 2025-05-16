@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ouroboros</title>
+    <!-- Favicon for the tab -->
+    <link rel="icon" type="image/png" href="https://cdn.pixabay.com/photo/2021/05/28/20/11/ouroboros-6291969_1280.png">
     <style>
         body {
             margin: 0;
@@ -51,12 +53,12 @@
             color: #fff;
             font-size: 18px;
             flex: 1;
-            text-align: center; /* Center the text */
+            text-align: center;
         }
 
         .search-bar input::placeholder {
             color: #ddd;
-            text-align: center; /* Center the placeholder text */
+            text-align: center;
         }
 
         .middle-wrapper {
@@ -104,11 +106,15 @@
             justify-content: center;
             align-items: center;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: background 0.3s, box-shadow 0.3s;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
         }
 
         .button:hover {
             background: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
+            filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.3));
         }
 
         .button img {
@@ -121,7 +127,7 @@
     <div class="center-section">
         <div class="date" id="date">Friday, May 16, 2025</div>
         <form class="search-bar" action="https://www.google.com/search" method="GET">
-            <input type="text" name="q" placeholder="O Ouroboros, serpent of eternity, guide me through the endless cycle of life, death, and rebirth.">
+            <input type="text" name="q" placeholder="O Ouroboros, eternal serpent, rise from the cycle of infinity to guide my path!">
         </form>
     </div>
 
