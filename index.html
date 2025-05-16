@@ -33,7 +33,7 @@
             grid-template-rows: repeat(10, 30px);
             gap: 2px;
             background-color: #1f1e24;
-            border-radius: 5px;
+            border-radius: 8px;
         }
 
         .square {
@@ -42,32 +42,80 @@
             background-color: #333;
         }
 
+        /* D-pad container */
         .dpad {
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
             margin-top: 20px;
-            padding-bottom: 20px;
+            position: relative;
         }
 
         .dpad-btn {
-            background-color: #444;
+            background: linear-gradient(145deg, #444, #555);
             color: white;
             border: none;
-            padding: 25px;
-            margin: 10px;
+            padding: 20px;
             font-size: 30px;
             cursor: pointer;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-            width: 70px;
-            height: 70px;
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2), -2px -2px 10px rgba(255, 255, 255, 0.1);
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Create cross layout for D-pad */
+        .dpad-up,
+        .dpad-down,
+        .dpad-left,
+        .dpad-right {
+            position: absolute;
+        }
+
+        .dpad-up {
+            top: -85px;
+        }
+
+        .dpad-down {
+            bottom: -85px;
+        }
+
+        .dpad-left {
+            left: -85px;
+        }
+
+        .dpad-right {
+            right: -85px;
+        }
+
+        /* Center circle for the D-pad */
+        .dpad-center {
+            background: linear-gradient(145deg, #444, #555);
+            color: white;
+            border: none;
+            padding: 20px;
+            font-size: 30px;
+            cursor: pointer;
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2), -2px -2px 10px rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .dpad-btn:active {
-            background-color: #555;
+            background-color: #666;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3), -2px -2px 5px rgba(255, 255, 255, 0.1);
         }
 
+        /* Responsive styling */
         @media (max-width: 600px) {
             #game-board {
                 grid-template-columns: repeat(10, 35px);
@@ -76,10 +124,10 @@
             }
 
             .dpad-btn {
-                padding: 30px;
+                padding: 25px;
                 font-size: 35px;
-                width: 80px;
-                height: 80px;
+                width: 90px;
+                height: 90px;
             }
         }
     </style>
@@ -90,12 +138,15 @@
     </div>
 
     <div class="dpad">
-        <button class="dpad-btn" id="up">↑</button>
-        <div>
-            <button class="dpad-btn" id="left">←</button>
-            <button class="dpad-btn" id="right">→</button>
+        <!-- Center circle of the D-pad -->
+        <button class="dpad-center">⊗</button>
+        <!-- Direction buttons positioned in a cross shape -->
+        <button class="dpad-btn dpad-up">↑</button>
+        <div style="display: flex; justify-content: space-between; width: 170px; margin-top: -20px;">
+            <button class="dpad-btn dpad-left">←</button>
+            <button class="dpad-btn dpad-right">→</button>
         </div>
-        <button class="dpad-btn" id="down">↓</button>
+        <button class="dpad-btn dpad-down">↓</button>
     </div>
 
     <script>
@@ -175,16 +226,16 @@
         }
 
         // Set up D-pad controls
-        document.getElementById('up').addEventListener('click', () => {
+        document.querySelector('.dpad-up').addEventListener('click', () => {
             if (direction !== directions.down) direction = directions.up;
         });
-        document.getElementById('down').addEventListener('click', () => {
+        document.querySelector('.dpad-down').addEventListener('click', () => {
             if (direction !== directions.up) direction = directions.down;
         });
-        document.getElementById('left').addEventListener('click', () => {
+        document.querySelector('.dpad-left').addEventListener('click', () => {
             if (direction !== directions.right) direction = directions.left;
         });
-        document.getElementById('right').addEventListener('click', () => {
+        document.querySelector('.dpad-right').addEventListener('click', () => {
             if (direction !== directions.left) direction = directions.right;
         });
 
