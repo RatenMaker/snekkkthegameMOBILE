@@ -3,219 +3,201 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ouroboros</title>
-    <!-- Favicon for the tab -->
-    <link rel="icon" type="image/png" href="https://cdn.pixabay.com/photo/2021/05/28/20/11/ouroboros-6291969_1280.png">
-    <!-- Link to Google Fonts for 8-bit font -->
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <title>Snake Game</title>
     <style>
+        /* style.css */
         body {
-            margin: 0;
-            padding: 0;
             font-family: Arial, sans-serif;
-            background-color: #2b2a33;
-            color: #fff;
-            height: 100vh;
-            width: 100vw;
-            overflow: hidden;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            justify-content: flex-start;
-            padding-top: 50px;
+            height: 100vh;
+            margin: 0;
+            background-color: #2b2a33;
+            color: white;
+            flex-direction: column;
+            padding: 10px;
         }
 
-        .center-section {
+        .game-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+
+        #game-board {
+            display: grid;
+            grid-template-columns: repeat(10, 30px);
+            grid-template-rows: repeat(10, 30px);
+            gap: 2px;
+            background-color: #1f1e24;
+            border-radius: 5px;
+        }
+
+        .square {
+            width: 30px;
+            height: 30px;
+            background-color: #333;
+        }
+
+        .dpad {
             display: flex;
             flex-direction: column;
             align-items: center;
             margin-top: 20px;
+            padding-bottom: 20px;
         }
 
-        .date {
-            font-size: 36px;
-            color: #ddd;
-            margin-bottom: 20px;
-        }
-
-        .search-bar {
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 25px;
-            padding: 10px 20px;
-            display: inline-flex;
-            align-items: center;
-            width: 70vw; /* Adjusted to 70% of viewport width */
-            max-width: 800px; /* Slightly reduced max-width */
-        }
-
-        .search-bar input {
-            background: none;
-            border: none;
-            outline: none;
-            color: #fff;
-            font-size: 18px;
-            flex: 1;
-            text-align: center;
-        }
-
-        .search-bar input::placeholder {
-            color: #ddd;
-            text-align: center;
-        }
-
-        .middle-wrapper {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            margin-top: 60px;
-            width: 100%;
-        }
-
-        .middle-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .time {
-            font-size: 96px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: #fff;
-            text-align: center;
-        }
-
-        .greeting {
-            font-size: 24px;
-            color: #ddd;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .button-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            justify-items: center;
-        }
-
-        .button {
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 15px;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            transition: background 0.3s, box-shadow 0.3s;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
-            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
-        }
-
-        .button:hover {
-            background: rgba(255, 255, 255, 0.5);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
-            filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.3));
-        }
-
-        .button img {
-            width: 60px;
-            height: 60px;
-        }
-
-        /* Play Snekkk Button Style */
-        .play-button {
-            background: #6b6b70; /* New color */
-            padding: 10px 20px; /* Smaller padding */
-            font-size: 14px; /* Smaller font size */
+        .dpad-btn {
+            background-color: #444;
             color: white;
-            border-radius: 10px; /* Slightly smaller border radius */
-            text-decoration: none;
-            font-family: 'Press Start 2P', cursive;
-            transition: background 0.3s, box-shadow 0.3s;
-            margin-top: 40px;
+            border: none;
+            padding: 25px;
+            margin: 10px;
+            font-size: 30px;
             cursor: pointer;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
-            text-align: center;
-            letter-spacing: 1px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            width: 70px;
+            height: 70px;
         }
 
-        .play-button:hover {
-            background: #58584d; /* Slightly darker color on hover */
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
+        .dpad-btn:active {
+            background-color: #555;
+        }
+
+        @media (max-width: 600px) {
+            #game-board {
+                grid-template-columns: repeat(10, 35px);
+                grid-template-rows: repeat(10, 35px);
+                gap: 3px;
+            }
+
+            .dpad-btn {
+                padding: 30px;
+                font-size: 35px;
+                width: 80px;
+                height: 80px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="center-section">
-        <div class="date" id="date">Friday, May 16, 2025</div>
-        <form class="search-bar" action="https://www.google.com/search" method="GET">
-            <input type="text" name="q" placeholder="O Ouroboros, eternal serpent, rise from the cycle of infinity to guide my path!">
-        </form>
+    <div class="game-container">
+        <div id="game-board"></div>
     </div>
 
-    <div class="middle-wrapper">
-        <div class="middle-section">
-            <div class="time" id="time">00:04</div>
-            <div class="greeting" id="greeting">Good night, Zor</div>
-            <div class="button-grid">
-                <a href="https://www.reddit.com" class="button">
-                    <img src="https://simpleicons.org/icons/reddit.svg" alt="Reddit" style="filter: grayscale(100%)">
-                </a>
-                <a href="https://www.youtube.com" class="button">
-                    <img src="https://simpleicons.org/icons/youtube.svg" alt="YouTube" style="filter: grayscale(100%)">
-                </a>
-                <a href="https://mail.google.com" class="button">
-                    <img src="https://simpleicons.org/icons/gmail.svg" alt="Gmail" style="filter: grayscale(100%)">
-                </a>
-                <a href="https://store.steampowered.com" class="button">
-                    <img src="https://simpleicons.org/icons/steam.svg" alt="Steam" style="filter: grayscale(100%)">
-                </a>
-                <a href="https://www.instagram.com" class="button">
-                    <img src="https://simpleicons.org/icons/instagram.svg" alt="Instagram" style="filter: grayscale(100%)">
-                </a>
-                <a href="https://x.com" class="button">
-                    <img src="https://simpleicons.org/icons/x.svg" alt="X" style="filter: grayscale(100%)">
-                </a>
-            </div>
-            <!-- Play Snekkk Button -->
-            <a href="https://azgroe.github.io/snekkkthegame/" class="play-button">
-                Play Snekkk
-            </a>
+    <div class="dpad">
+        <button class="dpad-btn" id="up">↑</button>
+        <div>
+            <button class="dpad-btn" id="left">←</button>
+            <button class="dpad-btn" id="right">→</button>
         </div>
+        <button class="dpad-btn" id="down">↓</button>
     </div>
 
     <script>
-        function updateTime() {
-            const now = new Date();
-            const hours = String(now.getHours()).padStart(2, '0');
-            const minutes = String(now.getMinutes()).padStart(2, '0');
-            document.getElementById('time').textContent = `${hours}:${minutes}`;
+        // script.js
+        const boardSize = 10;
+        const gameBoard = document.getElementById('game-board');
+        const directions = { up: [-1, 0], down: [1, 0], left: [0, -1], right: [0, 1] };
+        let snake = [[4, 5], [4, 4], [4, 3]]; // Starting position of the snake
+        let direction = [0, 1]; // Initial direction (right)
+        let food = [6, 6];
+        let gameInterval;
+        let score = 0;
 
-            const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-            const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-            const day = now.getDate();
-            const month = months[now.getMonth()];
-            const year = now.getFullYear();
-            const weekday = days[now.getDay()];
-            document.getElementById('date').textContent = `${weekday}, ${month} ${day}, ${year}`;
-
-            const hour = now.getHours();
-            let greeting = '';
-            if (hour >= 5 && hour < 12) {
-                greeting = 'Good morning, Zor';
-            } else if (hour >= 12 && hour < 17) {
-                greeting = 'Good afternoon, Zor';
-            } else if (hour >= 17 && hour < 22) {
-                greeting = 'Good evening, Zor';
-            } else {
-                greeting = 'Good night, Zor';
+        // Function to create the game board
+        function createBoard() {
+            gameBoard.innerHTML = '';
+            for (let i = 0; i < boardSize; i++) {
+                for (let j = 0; j < boardSize; j++) {
+                    const square = document.createElement('div');
+                    square.classList.add('square');
+                    gameBoard.appendChild(square);
+                }
             }
-            document.getElementById('greeting').textContent = greeting;
         }
-        setInterval(updateTime, 1000);
-        updateTime();
+
+        // Function to render the snake and food on the board
+        function render() {
+            createBoard();
+
+            // Render snake
+            snake.forEach(segment => {
+                const index = segment[0] * boardSize + segment[1];
+                gameBoard.children[index].style.backgroundColor = 'green';
+            });
+
+            // Render food
+            const foodIndex = food[0] * boardSize + food[1];
+            gameBoard.children[foodIndex].style.backgroundColor = 'red';
+        }
+
+        // Function to move the snake
+        function moveSnake() {
+            const newHead = [snake[0][0] + direction[0], snake[0][1] + direction[1]];
+
+            // Check if the snake hits the wall or itself
+            if (
+                newHead[0] < 0 || newHead[0] >= boardSize ||
+                newHead[1] < 0 || newHead[1] >= boardSize ||
+                snake.some(segment => segment[0] === newHead[0] && segment[1] === newHead[1])
+            ) {
+                clearInterval(gameInterval);
+                alert("Game Over!");
+                return;
+            }
+
+            // Add the new head to the snake
+            snake.unshift(newHead);
+
+            // Check if the snake eats food
+            if (newHead[0] === food[0] && newHead[1] === food[1]) {
+                score++;
+                generateFood();
+            } else {
+                snake.pop(); // Remove the last segment of the snake if no food is eaten
+            }
+
+            render();
+        }
+
+        // Function to generate a random food position
+        function generateFood() {
+            let newFood;
+            do {
+                newFood = [Math.floor(Math.random() * boardSize), Math.floor(Math.random() * boardSize)];
+            } while (snake.some(segment => segment[0] === newFood[0] && segment[1] === newFood[1])); // Ensure food doesn't spawn on the snake
+            food = newFood;
+        }
+
+        // Set up D-pad controls
+        document.getElementById('up').addEventListener('click', () => {
+            if (direction !== directions.down) direction = directions.up;
+        });
+        document.getElementById('down').addEventListener('click', () => {
+            if (direction !== directions.up) direction = directions.down;
+        });
+        document.getElementById('left').addEventListener('click', () => {
+            if (direction !== directions.right) direction = directions.left;
+        });
+        document.getElementById('right').addEventListener('click', () => {
+            if (direction !== directions.left) direction = directions.right;
+        });
+
+        // Initialize the game
+        function startGame() {
+            snake = [[4, 5], [4, 4], [4, 3]]; // Reset snake
+            direction = [0, 1]; // Reset direction
+            score = 0; // Reset score
+            generateFood();
+            gameInterval = setInterval(moveSnake, 200); // Move the snake every 200 ms
+        }
+
+        startGame();
     </script>
 </body>
 </html>
