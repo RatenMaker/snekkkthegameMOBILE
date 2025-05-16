@@ -23,6 +23,7 @@
             align-items: center;
             justify-content: flex-start;
             padding-top: 50px;
+            user-select: none; /* Disable text selection */
         }
 
         .center-section {
@@ -124,13 +125,12 @@
             height: 60px;
         }
 
-        /* Play Snekkk Button Style */
         .play-button {
-            background: #6b6b70; /* New color */
-            padding: 10px 20px; /* Smaller padding */
-            font-size: 14px; /* Smaller font size */
+            background: #6b6b70;
+            padding: 10px 20px;
+            font-size: 14px;
             color: white;
-            border-radius: 10px; /* Slightly smaller border radius */
+            border-radius: 10px;
             text-decoration: none;
             font-family: 'Press Start 2P', cursive;
             transition: background 0.3s, box-shadow 0.3s;
@@ -142,12 +142,12 @@
         }
 
         .play-button:hover {
-            background: #58584d; /* Slightly darker color on hover */
+            background: #58584d;
             box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
         }
     </style>
 </head>
-<body>
+<body oncontextmenu="return false;" onselectstart="return false;" ondragstart="return false;">
     <div class="center-section">
         <div class="date" id="date">Friday, May 16, 2025</div>
         <form class="search-bar" action="https://www.google.com/search" method="GET">
@@ -157,8 +157,8 @@
 
     <div class="middle-wrapper">
         <div class="middle-section">
-            <div class="time" id="time">00:04</div>
-            <div class="greeting" id="greeting">Good night, Zor</div>
+            <div class="time" id="time">07:51 AM</div>
+            <div class="greeting" id="greeting">Good morning, Zor</div>
             <div class="button-grid">
                 <a href="https://www.reddit.com" class="button">
                     <img src="https://simpleicons.org/icons/reddit.svg" alt="Reddit" style="filter: grayscale(100%)">
@@ -179,7 +179,6 @@
                     <img src="https://simpleicons.org/icons/x.svg" alt="X" style="filter: grayscale(100%)">
                 </a>
             </div>
-            <!-- Play Snekkk Button -->
             <a href="https://azgroe.github.io/snekkkthegame/" class="play-button">
                 Play Snekkk
             </a>
@@ -189,9 +188,18 @@
     <script>
         function updateTime() {
             const now = new Date();
-            const hours = String(now.getHours()).padStart(2, '0');
+            
+            let hours = now.getHours();
             const minutes = String(now.getMinutes()).padStart(2, '0');
-            document.getElementById('time').textContent = `${hours}:${minutes}`;
+            
+            let ampm = 'AM';
+            if (hours >= 12) {
+                ampm = 'PM';
+                if (hours > 12) hours -= 12;
+            }
+            if (hours === 0) hours = 12;
+
+            document.getElementById('time').textContent = `${hours}:${minutes} ${ampm}`;
 
             const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
             const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
