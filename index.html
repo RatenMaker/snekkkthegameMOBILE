@@ -6,6 +6,8 @@
     <title>Ouroboros</title>
     <!-- Favicon for the tab -->
     <link rel="icon" type="image/png" href="https://cdn.pixabay.com/photo/2021/05/28/20/11/ouroboros-6291969_1280.png">
+    <!-- Link to Google Fonts for 8-bit font -->
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <style>
         body {
             margin: 0;
@@ -121,6 +123,28 @@
             width: 60px;
             height: 60px;
         }
+
+        /* Play Snekkk Button Style */
+        .play-button {
+            background: #6b6b70; /* New color */
+            padding: 10px 20px; /* Smaller padding */
+            font-size: 14px; /* Smaller font size */
+            color: white;
+            border-radius: 10px; /* Slightly smaller border radius */
+            text-decoration: none;
+            font-family: 'Press Start 2P', cursive;
+            transition: background 0.3s, box-shadow 0.3s;
+            margin-top: 40px;
+            cursor: pointer;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+            text-align: center;
+            letter-spacing: 1px;
+        }
+
+        .play-button:hover {
+            background: #58584d; /* Slightly darker color on hover */
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
+        }
     </style>
 </head>
 <body>
@@ -155,6 +179,10 @@
                     <img src="https://simpleicons.org/icons/x.svg" alt="X" style="filter: grayscale(100%)">
                 </a>
             </div>
+            <!-- Play Snekkk Button -->
+            <a href="https://azgroe.github.io/snekkkthegame/" class="play-button">
+                Play Snekkk
+            </a>
         </div>
     </div>
 
